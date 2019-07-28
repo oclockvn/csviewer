@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>csviewer - Yet another csv viewer online</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <!-- ko foreach: tabs -->
+        <div class="tab-header" data-bind="css: { 'active': active }">
+          <span class="tab-title" data-bind="text: title, click: $root.activateTab.bind($root)"></span>
+          <button class="tab-button" type="button" data-bind="click: $root.closeTab.bind($root)">&times;</button>
+        </div>
+        <!-- /ko -->
+        <button class="tab-button text-white" type="button" data-bind="click: $root.newTab.bind($root)">&plus;</button>
+      </header>
+      <div class="content" data-bind="foreach: tabs">
+        <div class="tab-content" data-bind="text: content"></div>
+      </div>
+    </div>
+
+    <script src="./libs/knockout-3.5.0.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
