@@ -20,6 +20,12 @@ body {
   min-height: calc(100vh - 20px);
   margin: 10px;
   background: var(--container-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.container .content {
+  flex: 1;
 }
 
 .header {

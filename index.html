@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>csviewer - Yet another csv viewer online</title>
+    <link rel="stylesheet" href="./libs/handsontable.min.css">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -18,11 +19,17 @@
         <button class="tab-button text-white" type="button" data-bind="click: $root.newTab.bind($root)">&plus;</button>
       </header>
       <div class="content" data-bind="foreach: tabs">
-        <div class="tab-content" data-bind="text: content"></div>
+        <div class="tab-content" data-bind="attr: { id: id }, visible: active">
+          <div class="droppable">drop here <span data-bind="text: id"></span></div>
+          <div class="viewer"></div>
+        </div>
       </div>
     </div>
 
+    <script src="./libs/dropzone.js"></script>
     <script src="./libs/knockout-3.5.0.js"></script>
+    <script src="./libs/papaparse.min.js"></script>
+    <script src="./libs/handsontable.min.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
