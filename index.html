@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>csviewer - Yet another csv viewer online</title>
-    <link rel="stylesheet" href="./libs/handsontable.min.css">
+    <link rel="stylesheet" href="./libs/handsontable.full.min.css">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -12,7 +12,7 @@
       <header class="header">
         <!-- ko foreach: tabs -->
         <div class="tab-header" data-bind="css: { 'active': active }">
-          <span class="tab-title" data-bind="text: title, click: $root.activateTab.bind($root)"></span>
+          <span class="tab-title no-selectable" data-bind="text: title, click: $root.activateTab.bind($root)"></span>
           <button class="tab-button" type="button" data-bind="click: $root.closeTab.bind($root)">&times;</button>
         </div>
         <!-- /ko -->
@@ -20,7 +20,7 @@
       </header>
       <div class="content" data-bind="foreach: tabs">
         <div class="tab-content" data-bind="attr: { id: id }, visible: active">
-          <div class="droppable">drop here <span data-bind="text: id"></span></div>
+          <div class="droppable" data-bind="hidden: hasFile">drop file here</div>
           <div class="viewer"></div>
         </div>
       </div>
@@ -29,7 +29,7 @@
     <script src="./libs/dropzone.js"></script>
     <script src="./libs/knockout-3.5.0.js"></script>
     <script src="./libs/papaparse.min.js"></script>
-    <script src="./libs/handsontable.min.js"></script>
+    <script src="./libs/handsontable.full.min.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
