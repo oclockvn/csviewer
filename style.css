@@ -31,7 +31,8 @@ body {
 }
 
 .droppable {
-  min-height: 450px;
+  min-height: calc(100vh - 64px);
+  font-size: 4rem;
   text-align: center;
   display: flex;
   justify-content: center;

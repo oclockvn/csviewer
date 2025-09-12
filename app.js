@@ -1,6 +1,6 @@
 (() => {
   class Tab {
-    constructor(title = 'New tab', active = false, content = '') {
+    constructor(title = "New tab", active = false, content = "") {
       this.id = this.uid();
       this.title = ko.observable(title);
       this.content = ko.observable(content);
@@ -12,14 +12,17 @@
 
     uid = () => {
       let dt = new Date().getTime();
-      let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        let r = (dt + Math.random() * 16) % 16 | 0;
-        dt = Math.floor(dt / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-      });
+      let uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+          let r = (dt + Math.random() * 16) % 16 | 0;
+          dt = Math.floor(dt / 16);
+          return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+        }
+      );
 
-      return uuid.replace(/-/g, '');
-    }
+      return uuid.replace(/-/g, "");
+    };
 
     activateDropzone() {
       const ele = `[id='${this.id}'] .droppable`;
@@ -36,27 +39,22 @@
         // previewTemplate: "",
       });
 
-      this.dz.on("addedfile", file => {
+      this.dz.on("addedfile", (file) => {
         this.title(file.name);
         this.hasFile(true);
 
         var reader = new FileReader();
         reader.onload = function (event) {
           const {
-            target: {
-              result: csv
-            }
+            target: { result: csv },
           } = event;
 
           const result = Papa.parse(csv, {
             header: true,
-            skipEmptyLines: true
+            skipEmptyLines: true,
           });
 
-          const {
-            data,
-            meta
-          } = result;
+          const { data, meta } = result;
           const viewer = document.querySelector(viewerSelector);
           const hot = new Handsontable(viewer, {
             data: data,
@@ -64,7 +62,10 @@
             colHeaders: meta.fields,
             // colHeaders: true,
             columnSorting: true,
-            licenseKey: "non-commercial-and-evaluation"
+            manualColumnResize: true,
+            autoWrapRow: true,
+            autoWrapCol: true,
+            licenseKey: "non-commercial-and-evaluation",
           });
         };
 
@@ -90,11 +91,8 @@
 
     tabChanged(data) {
       console.log(data);
-      data.forEach(changed => {
-        const {
-          status,
-          value
-        } = changed;
+      data.forEach((changed) => {
+        const { status, value } = changed;
 
         if (status === "deleted") {
           value.removeDropzone();
@@ -103,13 +101,13 @@
             value.activateDropzone();
           });
         } else {
-          throw new Error('Not supported event');
+          throw new Error("Not supported event");
         }
       });
     }
 
     activateTab(tab) {
-      const _tabs = this.tabs().map(t => {
+      const _tabs = this.tabs().map((t) => {
         t.active(t.id === tab.id);
 
         return t;
@@ -119,7 +117,7 @@
     }
 
     closeTab(tab) {
-      this.tabs.remove(t => t.id === tab.id);
+      this.tabs.remove((t) => t.id === tab.id);
     }
 
     newTab() {
